@@ -13,8 +13,8 @@ subscription.
 - Hero with a live preview of Karo's output
 - 6 features, 3-step "how it works"
 - 3 before/after product-description examples (Persian + English)
-- Pricing: 3 tiers — Starter $9/mo, Growth $19/mo (recommended),
-  Business $39/mo; annual plan = two months free
+- Pricing: 3 tiers — Starter $12/mo, Growth $29/mo (recommended),
+  Business $59/mo; annual plan = two months free
 - FAQ, waitlist form, footer with a crypto-payment note
 - Full Persian/English toggle (RTL/LTR switch)
 - SEO: title, meta description, Open Graph, JSON-LD
