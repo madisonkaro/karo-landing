@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کارو | توضیح محصولی که می‌فروشد — Product descriptions that sell</title>
+<meta name="description" content="کارو با هوش مصنوعی توضیح محصول و متن فروش را به فارسی و انگلیسی می‌نویسد؛ مخصوص فروشگاه‌های کوچک. Karo writes product descriptions and sales copy in Persian and English for small businesses.">
+<meta property="og:title" content="کارو — توضیح محصولی که می‌فروشد">
+<meta property="og:description" content="توضیح محصول و متن فروش به فارسی و انگلیسی، در چند ثانیه. Product descriptions and sales copy in Persian and English, in seconds.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Karo","alternateName":"کارو","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"AI tool for small businesses that writes product descriptions and sales copy in Persian and English.","offers":{"@type":"Offer","price":"9","priceCurrency":"USD","description":"Starter plan, monthly subscription"}}
+</script>
+<style>
+/* Karo design tokens — extracted from stripe.com / linear.app (see design-extract-output/DESIGN-SYSTEM.md) */
+:root{
+  --bg:#FFFFFF; --bg-soft:#F6F9FC; --ink:#0A2540; --muted:#425466;
+  --brand:#0F766E; --brand-dark:#0B5953; --brand-soft:#E6F4F1;
+  --accent:#D97706; --accent-soft:#FDF0DA; --border:#E6EBF1;
+  --radius:8px; --radius-lg:16px; --radius-pill:999px;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 8px 24px rgba(50,50,93,.08);
+  --shadow-lg:0 2px 4px rgba(16,24,40,.06),0 16px 40px rgba(50,50,93,.12);
+  --nav-h:72px; --ease:cubic-bezier(0.45,0.05,0.55,0.95); --dur:240ms;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:"Vazirmatn","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+html[dir="ltr"] body{line-height:1.55}
+a{color:var(--brand);text-decoration:none}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;font-weight:800}
+section{padding:96px 0}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-soft);padding:5px 14px;border-radius:var(--radius-pill);margin-bottom:20px}
+.section-head{max-width:680px;margin-bottom:48px}
+.section-head h2{font-size:clamp(28px,3.6vw,40px);margin-bottom:14px}
+.lead{font-size:18px;color:var(--muted);max-width:640px}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;font-weight:600;padding:0 28px;height:48px;border-radius:var(--radius-pill);border:0;cursor:pointer;font-size:16px;font-family:inherit;transition:background var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.btn:hover{background:var(--brand-dark)}
+.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--border)}
+.btn.ghost:hover{border-color:var(--brand);background:var(--brand-soft)}
+.btn.big{height:52px;padding:0 34px;font-size:17px}
+.btn.amber{background:var(--accent)}
+.btn.amber:hover{background:#B45309}
+/* nav — Stripe-style: 72px, sticky, blur, hairline */
+nav{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:50}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
+.logo{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.logo span{color:var(--brand)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{color:var(--ink);font-weight:500;font-size:15px}
+.nav-links a:hover{color:var(--brand)}
+.nav-cta{height:40px;padding:0 20px;font-size:14px}
+.lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:var(--radius-pill);overflow:hidden;background:#fff}
+.lang-toggle button{border:0;background:transparent;padding:7px 14px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;color:var(--muted)}
+.lang-toggle button.active{background:var(--brand);color:#fff}
+/* hero */
+.hero{padding:96px 0 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(480px 300px at 18% 8%,rgba(15,118,110,.14),transparent 70%),
+  radial-gradient(420px 280px at 84% 12%,rgba(217,119,6,.12),transparent 70%),
+  radial-gradient(560px 320px at 50% -10%,rgba(99,91,255,.10),transparent 70%);
+  pointer-events:none}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(40px,6vw,64px);max-width:840px;margin:0 auto 22px;letter-spacing:-.025em}
+.hero h1 .hl{color:var(--brand)}
+.hero .lead{margin:0 auto 34px;font-size:19px}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-note{margin-top:20px;font-size:14px;color:var(--muted)}
+.hero-demo{margin:56px auto 0;max-width:880px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);text-align:start;overflow:hidden}
+.hero-demo header{background:var(--ink);color:#fff;padding:11px 20px;font-size:13px;font-weight:600;display:flex;justify-content:space-between}
+.demo-body{padding:24px 26px}
+.demo-body label{font-size:13px;font-weight:700;color:var(--muted);display:block;margin-bottom:8px}
+.demo-body .typed{font-size:16px;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);padding:13px 16px;margin-bottom:18px}
+.demo-out{border-inline-start:4px solid var(--brand);background:var(--brand-soft);border-radius:0 10px 10px 0;padding:16px 18px;font-size:16px}
+html[dir="ltr"] .demo-out{border-radius:10px 0 0 10px}
+/* feature grid */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow)}
+.card h3{font-size:19px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:15px;line-height:1.65}
+.card .icon{width:48px;height:48px;border-radius:12px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:step}
+.step{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;position:relative;box-shadow:var(--shadow)}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:24px;inset-inline-end:24px;width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+.step h3{font-size:18px;margin-bottom:8px;padding-inline-end:48px}
+.step p{color:var(--muted);font-size:15px;line-height:1.65}
+/* examples */
+.example{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}
+.example h3{padding:22px 26px 0;font-size:18px}
+.example h3 small{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-top:4px}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:18px}
+.ba{padding:22px 26px 26px}
+.ba.before{background:#FDF3F2}
+.ba.after{background:var(--brand-soft)}
+.ba .tag{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.ba.before .tag{color:#B3261E}
+.ba.after .tag{color:var(--brand)}
+.ba p{font-size:15px;line-height:1.7}
+.ba .en{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(10,37,64,.18);font-size:14px;color:var(--muted)}
+/* pricing */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.plan{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px 28px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.plan.hot{border:2px solid var(--brand);position:relative}
+.plan .badge{position:absolute;top:-14px;inset-inline-start:50%;transform:translateX(50%);background:var(--brand);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:var(--radius-pill);white-space:nowrap}
+html[dir="rtl"] .plan .badge{transform:translateX(-50%)}
+.plan h3{font-size:20px}
+.plan .for{font-size:14px;color:var(--muted);margin:6px 0 20px}
+.plan .price{font-size:44px;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.plan .price span{font-size:15px;font-weight:500;color:var(--muted)}
+.plan ul{list-style:none;margin:22px 0 28px;flex:1}
+.plan li{padding:8px 0;font-size:15px;border-bottom:1px solid var(--bg-soft)}
+.plan li::before{content:"✓ ";color:var(--brand);font-weight:800}
+.plan .btn{width:100%}
+.annual-note{text-align:center;color:var(--muted);margin-top:22px;font-size:14px}
+/* faq */
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.faq-item summary{padding:19px 24px;font-weight:700;cursor:pointer;font-size:16px;list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item p{padding:0 24px 20px;color:var(--muted);font-size:15px}
+/* waitlist */
+.waitlist{background:var(--ink);color:#fff;border-radius:24px;padding:64px 32px;text-align:center}
+.waitlist h2{font-size:clamp(26px,4vw,38px);margin-bottom:14px;color:#fff}
+.waitlist p{color:#B7C0CE;max-width:560px;margin:0 auto 30px;font-size:17px}
+.waitlist form{display:flex;gap:10px;max-width:600px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.waitlist input,.waitlist select{flex:1;min-width:170px;height:50px;padding:0 16px;border-radius:var(--radius-pill);border:1px solid #33415E;background:#16223A;color:#fff;font-family:inherit;font-size:15px}
+.waitlist input::placeholder{color:#8A93A6}
+.waitlist .btn{height:50px}
+.form-msg{margin-top:18px;font-weight:700;min-height:24px}
+.form-msg.ok{color:#7EE2B8}
+.count-line{margin-top:10px;font-size:14px;color:#8A93A6}
+.count-line button{background:none;border:0;color:#C7CDD8;text-decoration:underline;cursor:pointer;font-family:inherit;font-size:14px}
+/* footer */
+footer{padding:56px 0 64px;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
+.foot-grid{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap}
+footer h4{color:var(--ink);font-size:16px;margin-bottom:12px}
+footer ul{list-style:none}
+footer li{margin-bottom:8px}
+.crypto-note{background:var(--accent-soft);border:1px solid #F3D9A8;border-radius:12px;padding:18px 22px;margin-top:32px;font-size:14px;color:var(--ink)}
+@media (max-width:860px){
+  .grid3,.steps,.pricing{grid-template-columns:1fr}
+  .before-after{grid-template-columns:1fr}
+  .nav-links a{display:none}
+  section{padding:64px 0}
+  .hero{padding:64px 0 48px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#">کارو <span>Karo</span></a>
+    <div class="nav-links">
+      <a href="#how" data-i18n="nav_how">چطور کار می‌کند</a>
+      <a href="#examples" data-i18n="nav_examples">نمونه‌ها</a>
+      <a href="#pricing" data-i18n="nav_pricing">قیمت‌ها</a>
+      <a href="#faq" data-i18n="nav_faq">سوالات</a>
+      <a class="btn nav-cta" href="#waitlist" data-i18n="nav_cta">به لیست انتظار بپیوندید</a>
+      <div class="lang-toggle" role="group" aria-label="Language / زبان">
+        <button id="btn-fa" class="active" type="button">فارسی</button>
+        <button id="btn-en" type="button">English</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow" data-i18n="hero_eyebrow">ابزار هوش مصنوعی برای کسب‌وکارهای کوچک</span>
+    <h1 data-i18n-html="hero_h1">توضیح محصولی که <span class="hl">می‌فروشد</span>، در چند ثانیه</h1>
+    <p class="lead" data-i18n="hero_sub">کارو با هوش مصنوعی، توضیح محصول و متن فروش را به فارسی و انگلیسی می‌نویسد؛ مخصوص فروشگاه‌های کوچکی که وقت نوشتن ندارند.</p>
+    <div class="hero-cta">
+      <a class="btn big" href="#waitlist" data-i18n="hero_cta">به لیست انتظار بپیوندید</a>
+      <a class="btn ghost big" href="#examples" data-i18n="hero_cta2">نمونه‌ها را ببینید</a>
+    </div>
+    <p class="hero-note" data-i18n="hero_note">بدون نیاز به کارت بانکی برای ثبت‌نام در لیست انتظار — پرداخت با کریپتو</p>
+    <div class="hero-demo">
+      <header><span data-i18n="demo_title">پیش‌نمایش زنده کارو</span><span>karo.app/demo</span></header>
+      <div class="demo-body">
+        <label data-i18n="demo_in_label">محصول شما:</label>
+        <div class="typed" data-i18n="demo_in">زعفران اصل قائنات، ۱ گرم، بسته‌بندی شیشه‌ای</div>
+        <label data-i18n="demo_out_label">متن آماده کارو:</label>
+        <div class="demo-out" data-i18n="demo_out">زعفران قائنات، سرخ‌ترین و خوش‌عطرترین زعفران ایران؛ هر گرم از دل هزاران گل دست‌چین شده تا رنگ و عطر غذای شما فراموش‌نشدنی شود. در شیشه‌ی دربسته، تازه و معطر به دستتان می‌رسد.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="feat_eyebrow">چرا کارو</span>
+      <h2 data-i18n="feat_h2">نوشتن متن فروش، دیگر کار شما نیست</h2>
+      <p class="lead" data-i18n="feat_sub">فروشگاه‌های کوچک برای هر محصول ساعت‌ها وقت می‌گذارند تا چند خط بنویسند. کارو این کار را در چند ثانیه انجام می‌دهد.</p>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/></svg></div>
+        <h3 data-i18n="feat1_h">دو زبان، یک متن</h3>
+        <p data-i18n="feat1_p">هر توضیح محصول هم به فارسی و هم به انگلیسی نوشته می‌شود؛ آماده برای فروشگاه و اینستاگرام شما.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3 data-i18n="feat2_h">چند ثانیه، نه چند ساعت</h3>
+        <p data-i18n="feat2_p">نام محصول و چند ویژگی را وارد کنید؛ متن کامل، آماده‌ی انتشار، همان لحظه تحویل بگیرید.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg></div>
+        <h3 data-i18n="feat3_h">لحن مخصوص برند شما</h3>
+        <p data-i18n="feat3_p">رسمی، دوستانه یا فروشنده؟ لحن را انتخاب کنید تا همه‌ی متن‌ها صدای یک برند را داشته باشند.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <h3 data-i18n="feat4_h">دوستدار جستجو</h3>
+        <p data-i18n="feat4_p">متن‌ها با کلمات کلیدی محصول نوشته می‌شوند تا مشتری در گوگل راحت‌تر شما را پیدا کند.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></div>
+        <h3 data-i18n="feat5_h">تولید گروهی</h3>
+        <p data-i18n="feat5_p">ده‌ها محصول را یکجا بفرستید و همه‌ی توضیح‌ها را در یک فایل تحویل بگیرید.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg></div>
+        <h3 data-i18n="feat6_h">متن مال شماست</h3>
+        <p data-i18n="feat6_p">هر متنی که کارو می‌نویسد، متعلق به شماست؛ بدون محدودیت استفاده، برای همیشه.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="how_eyebrow">چطور کار می‌کند</span>
+      <h2 data-i18n="how_h2">سه قدم تا متن آماده</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3 data-i18n="step1_h">محصولت را معرفی کن</h3>
+        <p data-i18n="step1_p">نام محصول و چند ویژگی مهم را بنویس؛ مثل جنس، اندازه، رنگ یا طعم.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="step2_h">زبان و لحن را انتخاب کن</h3>
+        <p data-i18n="step2_p">فارسی، انگلیسی یا هر دو؛ لحن رسمی، دوستانه یا فروشنده.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="step3_h">متن را کپی کن</h3>
+        <p data-i18n="step3_p">توضیح کامل، عنوان و نکات کلیدی را بگیر و مستقیم در فروشگاهت بگذار.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="examples">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="ex_eyebrow">نمونه‌ی واقعی</span>
+      <h2 data-i18n="ex_h2">قبل و بعد، با کارو</h2>
+      <p class="lead" data-i18n="ex_sub">سمت راست چیزی است که بیشتر فروشگاه‌ها می‌نویسند؛ سمت چپ همان محصول با متن کارو.</p>
+    </div>
+
+    <div class="example">
+      <h3 data-i18n="ex1_h">زعفران قائنات — ۱ گرم <small>فروشگاه مواد غذایی</small></h3>
+      <div class="before-after">
+        <div class="ba before">
+          <div class="tag" data-i18n="before">قبل</div>
+          <p>زعفران اصل قائنات، ۱ گرم، بسته‌بندی شیشه‌ای.</p>
+        </div>
+        <div class="ba after">
+          <div class="tag" data-i18n="after">بعد — با کارو</div>
+          <p>زعفران قائنات، سرخ‌ترین و خوش‌عطرترین زعفران ایران؛ هر گرم از دل هزاران گل دست‌چین شده تا رنگ و عطر غذای شما فراموش‌نشدنی شود.</p>
+          <p class="en">Qaenat saffron — Iran's reddest, most fragrant saffron. Each gram is hand-picked from thousands of flowers, so your food's colour and aroma are unforgettable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3 data-i18n="ex2_h">صابون دست‌ساز — عسل و جو <small>فروشگاه محصولات طبیعی</small></h3>
+      <div class="before-after">
+        <div class="ba before">
+          <div class="tag" data-i18n="before">قبل</div>
+          <p>صابون دست‌ساز با عسل، مناسب پوست خشک.</p>
+        </div>
+        <div class="ba after">
+          <div class="tag" data-i18n="after">بعد — با کارو</div>
+          <p>صابون دست‌ساز عسل و جو؛ لایه‌برداری ملایم، رطوبت عمیق و بوی ملایم عسل طبیعی. برای پوستی که بعد از هر بار شستن، نرم و آرام می‌ماند.</p>
+          <p class="en">Handmade honey and oat soap. Gentle exfoliation, deep moisture, and the soft scent of real honey — for skin that stays soft and calm after every wash.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3 data-i18n="ex3_h">لیوان سرامیکی دست‌ساز <small>فروشگاه صنایع دستی</small></h3>
+      <div class="before-after">
+        <div class="ba before">
+          <div class="tag" data-i18n="before">قبل</div>
+          <p>لیوان سرامیکی، ۳۵۰ میلی‌لیتر، رنگ آبی.</p>
+        </div>
+        <div class="ba after">
+          <div class="tag" data-i18n="after">بعد — با کارو</div>
+          <p>لیوان سرامیکی دست‌ساز، لعاب آبی اقیانوسی؛ هر کدام کمی با دیگری فرق می‌کند، چون با دست ساخته شده. قهوه‌ی صبح شما سزاوار همین لیوان است.</p>
+          <p class="en">Handmade ceramic mug in ocean-blue glaze. Each one is slightly different, because it was made by hand. Your morning coffee deserves this mug.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="pr_eyebrow">قیمت‌ها</span>
+      <h2 data-i18n="pr_h2">قیمتی ساده، برای فروشگاه‌های کوچک</h2>
+      <p class="lead" data-i18n="pr_sub">به ازای تعداد توضیحی که می‌نویسید پول می‌دهید، نه به ازای تعداد کاربر. هر وقت خواستید لغو کنید.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan">
+        <h3 data-i18n="plan1_name">شروع</h3>
+        <p class="for" data-i18n="plan1_for">برای فروشگاه تازه‌کار</p>
+        <div class="price">$9<span data-i18n="per_month"> / ماه</span></div>
+        <ul>
+          <li data-i18n="plan1_f1">۳۰ توضیح محصول در ماه</li>
+          <li data-i18n="plan1_f2">فارسی و انگلیسی</li>
+          <li data-i18n="plan1_f3">۲ لحن نوشتاری</li>
+          <li data-i18n="plan1_f4">پشتیبانی با ایمیل</li>
+        </ul>
+        <a class="btn ghost" href="#waitlist" data-i18n="plan_cta">به لیست انتظار بپیوندید</a>
+      </div>
+      <div class="plan hot">
+        <span class="badge" data-i18n="plan_badge">پیشنهاد ما</span>
+        <h3 data-i18n="plan2_name">رشد</h3>
+        <p class="for" data-i18n="plan2_for">برای فروشگاه فعال</p>
+        <div class="price">$19<span data-i18n="per_month"> / ماه</span></div>
+        <ul>
+          <li data-i18n="plan2_f1">۱۵۰ توضیح محصول در ماه</li>
+          <li data-i18n="plan2_f2">فارسی و انگلیسی</li>
+          <li data-i18n="plan2_f3">همه‌ی لحن‌ها + لحن اختصاصی برند</li>
+          <li data-i18n="plan2_f4">تولید گروهی با فایل</li>
+          <li data-i18n="plan2_f5">عنوان و نکات کلیدی سئو</li>
+        </ul>
+        <a class="btn" href="#waitlist" data-i18n="plan_cta">به لیست انتظار بپیوندید</a>
+      </div>
+      <div class="plan">
+        <h3 data-i18n="plan3_name">کسب‌وکار</h3>
+        <p class="for" data-i18n="plan3_for">برای فروشگاه بزرگ یا تیم</p>
+        <div class="price">$39<span data-i18n="per_month"> / ماه</span></div>
+        <ul>
+          <li data-i18n="plan3_f1">۶۰۰ توضیح محصول در ماه</li>
+          <li data-i18n="plan3_f2">همه‌ی امکانات رشد</li>
+          <li data-i18n="plan3_f3">۳ عضو تیم</li>
+          <li data-i18n="plan3_f4">پشتیبانی اولویت‌دار</li>
+        </ul>
+        <a class="btn ghost" href="#waitlist" data-i18n="plan_cta">به لیست انتظار بپیوندید</a>
+      </div>
+    </div>
+    <p class="annual-note" data-i18n="annual_note">اشتراک سالانه: دو ماه رایگان. پرداخت با کریپتو: USDT ،USDC ،ETH ،SOL و TRX.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap" style="max-width:800px">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="faq_eyebrow">سوالات متداول</span>
+      <h2 data-i18n="faq_h2">پاسخ سوال‌های شما</h2>
+    </div>
+    <details class="faq-item">
+      <summary data-i18n="faq1_q">کارو به چه زبان‌هایی می‌نویسد؟</summary>
+      <p data-i18n="faq1_a">فارسی و انگلیسی. می‌توانید برای هر محصول هر دو زبان را با هم بگیرید یا فقط یکی را انتخاب کنید.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq2_q">چطور پرداخت کنم؟</summary>
+      <p data-i18n="faq2_a">با کریپتو: USDT ،USDC ،ETH ،SOL و TRX. بعد از ثبت‌نام در لیست انتظار، آدرس کیف پول و راهنمای پرداخت برایتان ارسال می‌شود.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq3_q">متن‌ها مال من است؟</summary>
+      <p data-i18n="faq3_a">بله. هر متنی که کارو برای شما می‌نویسد، متعلق به شماست و بدون محدودیت می‌توانید در فروشگاه، اینستاگرام یا هر جای دیگر استفاده کنید.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq4_q">اگر راضی نبودم چه؟</summary>
+      <p data-i18n="faq4_a">هر وقت بخواهید می‌توانید اشتراک را لغو کنید؛ تا پایان دوره‌ی پرداخت‌شده به همه‌ی امکانات دسترسی دارید.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq5_q">کارو کی آماده می‌شود؟</summary>
+      <p data-i18n="faq5_a">در حال ساخت است. با ثبت‌نام در لیست انتظار، جزو اولین کسانی باشید که خبر راه‌اندازی و تخفیف شروع را می‌گیرید.</p>
+    </details>
+  </div>
+</section>
+
+<section id="waitlist" style="padding-top:0">
+  <div class="wrap">
+    <div class="waitlist">
+      <h2 data-i18n="wl_h2">جزو اولین‌ها باشید</h2>
+      <p data-i18n="wl_p">نام و ایمیلتان را بگذارید؛ وقتی کارو آماده شد، خبرتان می‌کنیم و ۵۰٪ تخفیف ماه اول را می‌گیرید.</p>
+      <form id="waitlist-form">
+        <input type="text" id="wl-name" required data-i18n-ph="wl_name_ph" placeholder="نام شما">
+        <input type="email" id="wl-email" required data-i18n-ph="wl_email_ph" placeholder="ایمیل شما">
+        <select id="wl-type" aria-label="Business type">
+          <option value="shop" data-i18n="wl_t_shop">فروشگاه آنلاین</option>
+          <option value="instagram" data-i18n="wl_t_ig">فروش در اینستاگرام</option>
+          <option value="handmade" data-i18n="wl_t_hand">صنایع دستی</option>
+          <option value="food" data-i18n="wl_t_food">مواد غذایی</option>
+          <option value="other" data-i18n="wl_t_other">دیگر</option>
+        </select>
+        <button class="btn amber" type="submit" data-i18n="wl_btn">ثبت‌نام در لیست انتظار</button>
+      </form>
+      <p class="form-msg" id="form-msg" role="status"></p>
+      <p class="count-line"><span id="count-text"></span> <button type="button" id="download-signups" data-i18n="wl_dl">دانلود لیست ثبت‌نام‌ها (JSON)</button></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>کارو Karo</h4>
+        <p data-i18n="foot_tag">ابزار هوش مصنوعی برای کسب‌وکارهای کوچک</p>
+      </div>
+      <div>
+        <h4 data-i18n="foot_product">محصول</h4>
+        <ul>
+          <li><a href="#how" data-i18n="nav_how">چطور کار می‌کند</a></li>
+          <li><a href="#examples" data-i18n="nav_examples">نمونه‌ها</a></li>
+          <li><a href="#pricing" data-i18n="nav_pricing">قیمت‌ها</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="foot_contact">تماس</h4>
+        <ul>
+          <li><a href="mailto:hello@karo.app">hello@karo.app</a></li>
+          <li><a href="https://github.com/madisonkaro">github.com/madisonkaro</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="crypto-note" data-i18n="crypto_note">پرداخت فقط با کریپتو: USDT ،USDC ،ETH ،SOL و TRX. ما هرگز عبارت بازیابی یا کلید خصوصی شما را نمی‌خواهیم.</div>
+    <p style="margin-top:24px">© 2026 Karo — <span data-i18n="foot_rights">همه‌ی حقوق محفوظ است.</span></p>
+  </div>
+</footer>
+
+<script>
+/* ---- i18n: FA default (rtl), EN toggle (ltr) ---- */
+const I18N = {
+  fa: {
+    nav_how:"چطور کار می‌کند", nav_examples:"نمونه‌ها", nav_pricing:"قیمت‌ها", nav_faq:"سوالات", nav_cta:"به لیست انتظار بپیوندید",
+    hero_eyebrow:"ابزار هوش مصنوعی برای کسب‌وکارهای کوچک",
+    hero_h1:'توضیح محصولی که <span class="hl">می‌فروشد</span>، در چند ثانیه',
+    hero_sub:"کارو با هوش مصنوعی، توضیح محصول و متن فروش را به فارسی و انگلیسی می‌نویسد؛ مخصوص فروشگاه‌های کوچکی که وقت نوشتن ندارند.",
+    hero_cta:"به لیست انتظار بپیوندید", hero_cta2:"نمونه‌ها را ببینید",
+    hero_note:"بدون نیاز به کارت بانکی برای ثبت‌نام در لیست انتظار — پرداخت با کریپتو",
+    demo_title:"پیش‌نمایش زنده کارو", demo_in_label:"محصول شما:", demo_in:"زعفران اصل قائنات، ۱ گرم، بسته‌بندی شیشه‌ای",
+    demo_out_label:"متن آماده کارو:", demo_out:"زعفران قائنات، سرخ‌ترین و خوش‌عطرترین زعفران ایران؛ هر گرم از دل هزاران گل دست‌چین شده تا رنگ و عطر غذای شما فراموش‌نشدنی شود. در شیشه‌ی دربسته، تازه و معطر به دستتان می‌رسد.",
+    feat_eyebrow:"چرا کارو", feat_h2:"نوشتن متن فروش، دیگر کار شما نیست",
+    feat_sub:"فروشگاه‌های کوچک برای هر محصول ساعت‌ها وقت می‌گذارند تا چند خط بنویسند. کارو این کار را در چند ثانیه انجام می‌دهد.",
+    feat1_h:"دو زبان، یک متن", feat1_p:"هر توضیح محصول هم به فارسی و هم به انگلیسی نوشته می‌شود؛ آماده برای فروشگاه و اینستاگرام شما.",
+    feat2_h:"چند ثانیه، نه چند ساعت", feat2_p:"نام محصول و چند ویژگی را وارد کنید؛ متن کامل، آماده‌ی انتشار، همان لحظه تحویل بگیرید.",
+    feat3_h:"لحن مخصوص برند شما", feat3_p:"رسمی، دوستانه یا فروشنده؟ لحن را انتخاب کنید تا همه‌ی متن‌ها صدای یک برند را داشته باشند.",
+    feat4_h:"دوستدار جستجو", feat4_p:"متن‌ها با کلمات کلیدی محصول نوشته می‌شوند تا مشتری در گوگل راحت‌تر شما را پیدا کند.",
+    feat5_h:"تولید گروهی", feat5_p:"ده‌ها محصول را یکجا بفرستید و همه‌ی توضیح‌ها را در یک فایل تحویل بگیرید.",
+    feat6_h:"متن مال شماست", feat6_p:"هر متنی که کارو می‌نویسد، متعلق به شماست؛ بدون محدودیت استفاده، برای همیشه.",
+    how_eyebrow:"چطور کار می‌کند", how_h2:"سه قدم تا متن آماده",
+    step1_h:"محصولت را معرفی کن", step1_p:"نام محصول و چند ویژگی مهم را بنویس؛ مثل جنس، اندازه، رنگ یا طعم.",
+    step2_h:"زبان و لحن را انتخاب کن", step2_p:"فارسی، انگلیسی یا هر دو؛ لحن رسمی، دوستانه یا فروشنده.",
+    step3_h:"متن را کپی کن", step3_p:"توضیح کامل، عنوان و نکات کلیدی را بگیر و مستقیم در فروشگاهت بگذار.",
+    ex_eyebrow:"نمونه‌ی واقعی", ex_h2:"قبل و بعد، با کارو", ex_sub:"سمت راست چیزی است که بیشتر فروشگاه‌ها می‌نویسند؛ سمت چپ همان محصول با متن کارو.",
+    ex1_h:'زعفران قائنات — ۱ گرم <small>فروشگاه مواد غذایی</small>',
+    ex2_h:'صابون دست‌ساز — عسل و جو <small>فروشگاه محصولات طبیعی</small>',
+    ex3_h:'لیوان سرامیکی دست‌ساز <small>فروشگاه صنایع دستی</small>',
+    before:"قبل", after:"بعد — با کارو",
+    pr_eyebrow:"قیمت‌ها", pr_h2:"قیمتی ساده، برای فروشگاه‌های کوچک",
+    pr_sub:"به ازای تعداد توضیحی که می‌نویسید پول می‌دهید، نه به ازای تعداد کاربر. هر وقت خواستید لغو کنید.",
+    plan1_name:"شروع", plan1_for:"برای فروشگاه تازه‌کار",
+    plan1_f1:"۳۰ توضیح محصول در ماه", plan1_f2:"فارسی و انگلیسی", plan1_f3:"۲ لحن نوشتاری", plan1_f4:"پشتیبانی با ایمیل",
+    plan_badge:"پیشنهاد ما", plan2_name:"رشد", plan2_for:"برای فروشگاه فعال",
+    plan2_f1:"۱۵۰ توضیح محصول در ماه", plan2_f2:"فارسی و انگلیسی", plan2_f3:"همه‌ی لحن‌ها + لحن اختصاصی برند", plan2_f4:"تولید گروهی با فایل", plan2_f5:"عنوان و نکات کلیدی سئو",
+    plan3_name:"کسب‌وکار", plan3_for:"برای فروشگاه بزرگ یا تیم",
+    plan3_f1:"۶۰۰ توضیح محصول در ماه", plan3_f2:"همه‌ی امکانات رشد", plan3_f3:"۳ عضو تیم", plan3_f4:"پشتیبانی اولویت‌دار",
+    plan_cta:"به لیست انتظار بپیوندید", per_month:" / ماه",
+    annual_note:"اشتراک سالانه: دو ماه رایگان. پرداخت با کریپتو: USDT ،USDC ،ETH ،SOL و TRX.",
+    faq_eyebrow:"سوالات متداول", faq_h2:"پاسخ سوال‌های شما",
+    faq1_q:"کارو به چه زبان‌هایی می‌نویسد؟", faq1_a:"فارسی و انگلیسی. می‌توانید برای هر محصول هر دو زبان را با هم بگیرید یا فقط یکی را انتخاب کنید.",
+    faq2_q:"چطور پرداخت کنم؟", faq2_a:"با کریپتو: USDT ،USDC ،ETH ،SOL و TRX. بعد از ثبت‌نام در لیست انتظار، آدرس کیف پول و راهنمای پرداخت برایتان ارسال می‌شود.",
+    faq3_q:"متن‌ها مال من است؟", faq3_a:"بله. هر متنی که کارو برای شما می‌نویسد، متعلق به شماست و بدون محدودیت می‌توانید در فروشگاه، اینستاگرام یا هر جای دیگر استفاده کنید.",
+    faq4_q:"اگر راضی نبودم چه؟", faq4_a:"هر وقت بخواهید می‌توانید اشتراک را لغو کنید؛ تا پایان دوره‌ی پرداخت‌شده به همه‌ی امکانات دسترسی دارید.",
+    faq5_q:"کارو کی آماده می‌شود؟", faq5_a:"در حال ساخت است. با ثبت‌نام در لیست انتظار، جزو اولین کسانی باشید که خبر راه‌اندازی و تخفیف شروع را می‌گیرید.",
+    wl_h2:"جزو اولین‌ها باشید", wl_p:"نام و ایمیلتان را بگذارید؛ وقتی کارو آماده شد، خبرتان می‌کنیم و ۵۰٪ تخفیف ماه اول را می‌گیرید.",
+    wl_name_ph:"نام شما", wl_email_ph:"ایمیل شما",
+    wl_t_shop:"فروشگاه آنلاین", wl_t_ig:"فروش در اینستاگرام", wl_t_hand:"صنایع دستی", wl_t_food:"مواد غذایی", wl_t_other:"دیگر",
+    wl_btn:"ثبت‌نام در لیست انتظار", wl_dl:"دانلود لیست ثبت‌نام‌ها (JSON)",
+    wl_ok:"ثبت شد! به‌زودی خبر راه‌اندازی کارو را می‌گیرید.",
+    wl_count:function(n){return n ? n + " نفر در لیست انتظار هستند." : "هنوز کسی در لیست انتظار ثبت‌نام نکرده است.";},
+    foot_tag:"ابزار هوش مصنوعی برای کسب‌وکارهای کوچک", foot_product:"محصول", foot_contact:"تماس",
+    crypto_note:"پرداخت فقط با کریپتو: USDT ،USDC ،ETH ،SOL و TRX. ما هرگز عبارت بازیابی یا کلید خصوصی شما را نمی‌خواهیم.",
+    foot_rights:"همه‌ی حقوق محفوظ است."
+  },
+  en: {
+    nav_how:"How it works", nav_examples:"Examples", nav_pricing:"Pricing", nav_faq:"FAQ", nav_cta:"Join the waitlist",
+    hero_eyebrow:"AI tool for small businesses",
+    hero_h1:'Product descriptions that <span class="hl">sell</span>, in seconds',
+    hero_sub:"Karo writes product descriptions and sales copy in Persian and English, for small shops that have no time to write.",
+    hero_cta:"Join the waitlist", hero_cta2:"See examples",
+    hero_note:"No card needed to join the waitlist — crypto payments accepted",
+    demo_title:"Live Karo preview", demo_in_label:"Your product:", demo_in:"Genuine Qaenat saffron, 1 gram, glass jar",
+    demo_out_label:"Karo's ready text:", demo_out:"Qaenat saffron — Iran's reddest, most fragrant saffron. Each gram is hand-picked from thousands of flowers, so your food's colour and aroma are unforgettable. Sealed in glass, it arrives fresh and fragrant.",
+    feat_eyebrow:"Why Karo", feat_h2:"Writing sales copy is no longer your job",
+    feat_sub:"Small shops spend hours writing a few lines for every product. Karo does it in seconds.",
+    feat1_h:"Two languages, one text", feat1_p:"Every product description is written in both Persian and English — ready for your shop and your Instagram.",
+    feat2_h:"Seconds, not hours", feat2_p:"Enter the product name and a few features; get the full text, ready to publish, right away.",
+    feat3_h:"Your brand's own voice", feat3_p:"Formal, friendly or salesy? Pick a tone so all your copy sounds like one brand.",
+    feat4_h:"Search-friendly", feat4_p:"Copy is written with the product's keywords, so customers find you more easily on Google.",
+    feat5_h:"Bulk generation", feat5_p:"Send dozens of products at once and get all the descriptions in one file.",
+    feat6_h:"The copy is yours", feat6_p:"Every text Karo writes for you belongs to you — use it anywhere, forever, with no limits.",
+    how_eyebrow:"How it works", how_h2:"Three steps to ready copy",
+    step1_h:"Describe your product", step1_p:"Write the product name and a few key features — material, size, colour or flavour.",
+    step2_h:"Pick a language and tone", step2_p:"Persian, English, or both; formal, friendly or salesy tone.",
+    step3_h:"Copy the text", step3_p:"Take the full description, headline and key points and put them straight in your shop.",
+    ex_eyebrow:"Real example", ex_h2:"Before and after, with Karo", ex_sub:"On one side, what most shops write; on the other, the same product with Karo's copy.",
+    ex1_h:'Qaenat saffron — 1 gram <small>Grocery shop</small>',
+    ex2_h:'Handmade soap — honey and oat <small>Natural products shop</small>',
+    ex3_h:'Handmade ceramic mug <small>Craft shop</small>',
+    before:"Before", after:"After — with Karo",
+    pr_eyebrow:"Pricing", pr_h2:"Simple pricing for small shops",
+    pr_sub:"You pay for the number of descriptions you write, not per user. Cancel anytime.",
+    plan1_name:"Starter", plan1_for:"For a new shop",
+    plan1_f1:"30 product descriptions / month", plan1_f2:"Persian and English", plan1_f3:"2 writing tones", plan1_f4:"Email support",
+    plan_badge:"Our pick", plan2_name:"Growth", plan2_for:"For an active shop",
+    plan2_f1:"150 product descriptions / month", plan2_f2:"Persian and English", plan2_f3:"All tones + your brand's own tone", plan2_f4:"Bulk generation from a file", plan2_f5:"SEO headlines and key points",
+    plan3_name:"Business", plan3_for:"For a large shop or team",
+    plan3_f1:"600 product descriptions / month", plan3_f2:"Everything in Growth", plan3_f3:"3 team members", plan3_f4:"Priority support",
+    plan_cta:"Join the waitlist", per_month:" / month",
+    annual_note:"Annual plan: two months free. Crypto payments: USDT, USDC, ETH, SOL and TRX.",
+    faq_eyebrow:"FAQ", faq_h2:"Your questions, answered",
+    faq1_q:"Which languages does Karo write in?", faq1_a:"Persian and English. For each product you can get both languages together, or just one.",
+    faq2_q:"How do I pay?", faq2_a:"With crypto: USDT, USDC, ETH, SOL and TRX. After joining the waitlist, we send you the wallet address and payment guide.",
+    faq3_q:"Is the copy mine?", faq3_a:"Yes. Every text Karo writes for you belongs to you, and you can use it in your shop, on Instagram, or anywhere else, without limits.",
+    faq4_q:"What if I am not happy?", faq4_a:"You can cancel anytime; you keep access to everything until the end of the period you paid for.",
+    faq5_q:"When is Karo ready?", faq5_a:"It is being built now. Join the waitlist to be among the first to hear about the launch and the early discount.",
+    wl_h2:"Be among the first", wl_p:"Leave your name and email; when Karo is ready we will let you know, with 50% off the first month.",
+    wl_name_ph:"Your name", wl_email_ph:"Your email",
+    wl_t_shop:"Online shop", wl_t_ig:"Selling on Instagram", wl_t_hand:"Handmade goods", wl_t_food:"Food products", wl_t_other:"Other",
+    wl_btn:"Join the waitlist", wl_dl:"Download signups (JSON)",
+    wl_ok:"You are in! We will let you know as soon as Karo launches.",
+    wl_count:function(n){return n ? n + " people are on the waitlist." : "Nobody has joined the waitlist yet.";},
+    foot_tag:"AI tool for small businesses", foot_product:"Product", foot_contact:"Contact",
+    crypto_note:"Crypto payments only: USDT, USDC, ETH, SOL and TRX. We will never ask for your seed phrase or private key.",
+    foot_rights:"All rights reserved."
+  }
+};
+let lang = localStorage.getItem("karo_lang") || "fa";
+function applyLang(l){
+  lang = l;
+  localStorage.setItem("karo_lang", l);
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === "fa" ? "rtl" : "ltr";
+  document.getElementById("btn-fa").classList.toggle("active", l === "fa");
+  document.getElementById("btn-en").classList.toggle("active", l === "en");
+  const t = I18N[l];
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    const k = el.getAttribute("data-i18n");
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+    const k = el.getAttribute("data-i18n-html");
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach(function(el){
+    const k = el.getAttribute("data-i18n-ph");
+    if (t[k] !== undefined) el.placeholder = t[k];
+  });
+  renderCount();
+}
+document.getElementById("btn-fa").addEventListener("click", function(){ applyLang("fa"); });
+document.getElementById("btn-en").addEventListener("click", function(){ applyLang("en"); });
+
+/* ---- Waitlist: localStorage + export as signups.json ---- */
+const KEY = "karo_waitlist";
+function getSignups(){
+  try { return JSON.parse(localStorage.getItem(KEY) || "[]"); }
+  catch (e) { return []; }
+}
+function renderCount(){
+  const n = getSignups().length;
+  document.getElementById("count-text").textContent = I18N[lang].wl_count(n);
+}
+document.getElementById("waitlist-form").addEventListener("submit", function(e){
+  e.preventDefault();
+  const name = document.getElementById("wl-name").value.trim();
+  const email = document.getElementById("wl-email").value.trim();
+  if (!name || !email || email.indexOf("@") < 0) return;
+  const list = getSignups();
+  list.push({ name: name, email: email, type: document.getElementById("wl-type").value, lang: lang, date: new Date().toISOString() });
+  localStorage.setItem(KEY, JSON.stringify(list));
+  document.getElementById("form-msg").textContent = I18N[lang].wl_ok;
+  document.getElementById("form-msg").classList.add("ok");
+  document.getElementById("waitlist-form").reset();
+  renderCount();
+});
+document.getElementById("download-signups").addEventListener("click", function(){
+  const blob = new Blob([JSON.stringify(getSignups(), null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "signups.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+applyLang(lang);
+</script>
+</body>
+</html>
